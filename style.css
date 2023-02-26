@@ -9,3 +9,13 @@ ul {
     font-weight: 400;
     color: grey;
 }
+
+#save-list-button {
+    margin-bottom: 5px;
+}
+
+.todoListItems-section ul {
+    margin-left: 0px;
+    margin-top: 5px;
+    padding: 0px;
+}
