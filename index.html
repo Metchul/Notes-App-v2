@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <head>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>Notes App v2</h1>
-    <h2>Todo List:</h2>
+    <div class="todoList-section">
+        <h2>Todo List:</h2>
+        <div>
+            <button id="save-list-button">Save List</button>
+        </div>
+        <div>
+            <input id="todo-item-input">
+            <button id="add-todo-item-button">Add to List</button>
+        </div>
+        <div class="todoListItems-section">
+            <ul id="todoList-list">
+                <li>
+                    <label>
+                        <input type = "checkbox" class="rounded-checkbox">
+                        <span>Test Item</span>
+                    </label>
+                    <span class = "li-subtitle">Created:</span>
+                    <span class = "li-subtitle">Completed:</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
