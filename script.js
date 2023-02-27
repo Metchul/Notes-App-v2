@@ -40,12 +40,24 @@ class todoItem {
         listItem.setAttribute("id", this.todoId);
         listItem.innerHTML = 
         `<lable>` +
-            `<input type = "checkbox" class="rounded-checkbox">` +
+            `<input type = "checkbox" class="rounded-checkbox" id="${this.todoId}">` +
             `<span class="item-title">${this.taskName}</span>` +
         `</label>` +
         `<span class = "li-subtitle">Created: ${this.createdDate}</span>` +
         '<span class = "li-subtitle">Completed:</span>';
         todoListList.appendChild(listItem);
+
+
+        const todoItemObject = this;
+        const checkBoxObject = document.getElementById(this.todoId);
+        checkBoxObject.addEventListener("change", function(event) {
+            const targetCheckbox = event.target;
+            if (targetCheckbox.checked) {
+                console.log("Check box " + todoItemObject.taskName + " is checked.");
+            } else {
+                console.log("Check box " + todoItemObject.taskName + " is unchecked.");
+            }
+        });
     }
 
 }
