@@ -21,12 +21,13 @@ function generateRandomLetter() {
 
 //todo item class
 class todoItem {
-    constructor(taskName) {
+    constructor(taskName,completedState) {
         this.taskName = taskName;
         this.todoId = "cb-" + generateRandomLetter() + generateRandomLetter() + Date.now();
         this.createdDate = new Date().toLocaleString();
+        this.completedState = Boolean(completedState);
     }
-    
+
     completedDate = "";
 
     //method for testing
@@ -53,6 +54,7 @@ class todoItem {
         `<span class = "li-subtitle">Id: ${this.todoId}</span>`;
         todoListList.appendChild(listItem);
     
+
         const todoItemObject = this;
         const checkBoxObject = document.getElementById(this.todoId);
         const completedDateElement = document.getElementById(`${this.todoId}-completed-date`);
@@ -61,7 +63,8 @@ class todoItem {
             if (targetCheckbox.checked) {
                 todoItemObject.completedDate = new Date().toLocaleString();
                 completedDateElement.textContent = "Completed: " + todoItemObject.completedDate;
-                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + todoItemObject.completedDate);
+                todoItemObject.completedState = true
+                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + todoItemObject.completedDate + "\nDone State: " + todoItemObject.completedState);
         
                 //update todoListExport array with the new compledDate
                 for (let i = 0; i < todoListExport.length; i++) {
@@ -72,8 +75,9 @@ class todoItem {
                 }
             } else {
                 todoItemObject.completedDate = "";
+                todoItemObject.completedState = false
                 completedDateElement.textContent = todoItemObject.completedDate;
-                console.log("Check box " + todoItemObject.todoId + " is unchecked.\nNew Completed Date: " + todoItemObject.completedDate);
+                console.log("Check box " + todoItemObject.todoId + " is unchecked.\nNew Completed Date: " + todoItemObject.completedDate + "\nDone State: " + todoItemObject.completedState);
         
                 //update todoListExport array with blank completedDate
                 for (let i = 0; i < todoListExport.length; i++) {
@@ -92,7 +96,7 @@ class todoItem {
 
 addTodoButton.addEventListener("click", function() {
     console.log("LOG: Add to List buton clicked");
-    const newItem = new todoItem(todoInput.value);
+    const newItem = new todoItem(todoInput.value, false);
     newItem.logInfo();
     newItem.render();
     todoListExport.push(newItem);
