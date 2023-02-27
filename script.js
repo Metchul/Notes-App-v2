@@ -27,7 +27,7 @@ class todoItem {
         this.createdDate = new Date().toLocaleString();
     }
     
-    
+    completedDate = "";
 
     //method for testing
     logInfo() {
@@ -53,7 +53,10 @@ class todoItem {
         checkBoxObject.addEventListener("change", function(event) {
             const targetCheckbox = event.target;
             if (targetCheckbox.checked) {
+                this.completedDate = new Date().toLocaleString();
                 console.log("Check box " + todoItemObject.taskName + " is checked.");
+                console.log(this.completedDate)
+                
             } else {
                 console.log("Check box " + todoItemObject.taskName + " is unchecked.");
             }
