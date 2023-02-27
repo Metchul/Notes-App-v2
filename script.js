@@ -8,13 +8,26 @@ const exportTodoListButton = document.getElementById("save-list-button");
 //list used to export todolist items
 const todoListExport = []
 
+//function used for generate ids. I'm using Date.now() and so if by some change items are created 
+//at the exact millisecond they will have the same id. So I'm appending two random letters
+//to the start of each id
+function generateRandomLetter() {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const randomIndex = Math.floor(Math.random() * 26); 
+    const randomLetter = alphabet.charAt(randomIndex);
+    return randomLetter;
+}
+
+
 //todo item class
 class todoItem {
     constructor(taskName) {
         this.taskName = taskName;
+        this.todoId = "cb-" + generateRandomLetter() + generateRandomLetter() + Date.now();
+        this.createdDate = new Date().toLocaleString();
     }
     
-    createdDate = new Date().toLocaleString();
+    
 
     //method for testing
     logInfo() {
@@ -24,6 +37,7 @@ class todoItem {
     //render what the new listitems will look like
     render() {
         const listItem = document.createElement("li");
+        listItem.setAttribute("id", this.todoId);
         listItem.innerHTML = 
         `<lable>` +
             `<input type = "checkbox" class="rounded-checkbox">` +
@@ -48,7 +62,7 @@ addTodoButton.addEventListener("click", function() {
 //will be used to export list but right now it's just for testing
 exportTodoListButton.addEventListener("click", function() {
     for (let i = 0; i < todoListExport.length; i++) {
-        testString = "TASK: " + todoListExport[i].taskName + "  CREATED DATE: " + todoListExport[i].createdDate;
+        testString = "TASK: " + todoListExport[i].taskName + "  CREATED DATE: " + todoListExport[i].createdDate + " ID:" + todoListExport[i].todoId;
         console.log(testString); 
     }
 });
