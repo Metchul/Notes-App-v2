@@ -48,18 +48,19 @@ class todoItem {
             `<input type = "checkbox" class="rounded-checkbox" id="${this.todoId}">` +
             `<span class="item-title">${this.taskName}</span>` +
         `</label>` +
-        `<span class = "li-subtitle">Created: ${this.createdDate}</span>` +
-        '<span class = "li-subtitle">Completed:</span>' +
+        `<span class="li-subtitle">Created: ${this.createdDate}</span>` +
+        `<span class="li-subtitle" id="${this.todoId}-completed-date"></span>` +
         `<span class = "li-subtitle">Id: ${this.todoId}</span>`;
         todoListList.appendChild(listItem);
-
-
+    
         const todoItemObject = this;
         const checkBoxObject = document.getElementById(this.todoId);
+        const completedDateElement = document.getElementById(`${this.todoId}-completed-date`);
         checkBoxObject.addEventListener("change", function(event) {
             const targetCheckbox = event.target;
             if (targetCheckbox.checked) {
                 todoItemObject.completedDate = new Date().toLocaleString();
+                completedDateElement.textContent = "Completed: " + todoItemObject.completedDate;
                 console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + todoItemObject.completedDate);
         
                 //update todoListExport array with the new compledDate
@@ -71,6 +72,7 @@ class todoItem {
                 }
             } else {
                 todoItemObject.completedDate = "";
+                completedDateElement.textContent = todoItemObject.completedDate;
                 console.log("Check box " + todoItemObject.todoId + " is unchecked.\nNew Completed Date: " + todoItemObject.completedDate);
         
                 //update todoListExport array with blank completedDate
@@ -82,8 +84,8 @@ class todoItem {
                 }
             }
         });
-        
     }
+    
 
 }
 
