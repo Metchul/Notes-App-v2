@@ -59,14 +59,30 @@ class todoItem {
         checkBoxObject.addEventListener("change", function(event) {
             const targetCheckbox = event.target;
             if (targetCheckbox.checked) {
-                this.completedDate = new Date().toLocaleString();
-                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + this.completedDate);
-                
+                todoItemObject.completedDate = new Date().toLocaleString();
+                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + todoItemObject.completedDate);
+        
+                //update todoListExport array with the new compledDate
+                for (let i = 0; i < todoListExport.length; i++) {
+                    if (todoListExport[i].todoId === todoItemObject.todoId) {
+                        todoListExport[i].completedDate = todoItemObject.completedDate;
+                        break;
+                    }
+                }
             } else {
-                this.completedDate = ""
-                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + this.completedDate);
+                todoItemObject.completedDate = "";
+                console.log("Check box " + todoItemObject.todoId + " is unchecked.\nNew Completed Date: " + todoItemObject.completedDate);
+        
+                //update todoListExport array with blank completedDate
+                for (let i = 0; i < todoListExport.length; i++) {
+                    if (todoListExport[i].todoId === todoItemObject.todoId) {
+                        todoListExport[i].completedDate = todoItemObject.completedDate;
+                        break;
+                    }
+                }
             }
         });
+        
     }
 
 }
@@ -83,8 +99,13 @@ addTodoButton.addEventListener("click", function() {
 //will be used to export list but right now it's just for testing
 exportTodoListButton.addEventListener("click", function() {
     for (let i = 0; i < todoListExport.length; i++) {
-        testString = "TASK: " + todoListExport[i].taskName + "  CREATED DATE: " + todoListExport[i].createdDate + " ID:" + todoListExport[i].todoId;
-        console.log(testString); 
+        console.log(
+            "TASK: " + 
+            todoListExport[i].taskName + 
+            "\nCREATED DATE: " + todoListExport[i].createdDate + 
+            "\nID:" + todoListExport[i].todoId + 
+            "\nCompleted:" + todoListExport[i].completedDate
+        ); 
     }
 });
 
