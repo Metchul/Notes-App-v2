@@ -96,18 +96,20 @@ addTodoButton.addEventListener("click", function() {
     todoListExport.push(newItem);
 });
 
-//will be used to export list but right now it's just for testing
+//will be used to export list
 exportTodoListButton.addEventListener("click", function() {
-    for (let i = 0; i < todoListExport.length; i++) {
-        console.log(
-            "TASK: " + 
-            todoListExport[i].taskName + 
-            "\nCREATED DATE: " + todoListExport[i].createdDate + 
-            "\nID:" + todoListExport[i].todoId + 
-            "\nCompleted:" + todoListExport[i].completedDate
-        ); 
-    }
+    const jsonString = JSON.stringify(todoListExport);
+    const blob = new Blob([jsonString], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "todoList.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
 });
+
 
 
 })
