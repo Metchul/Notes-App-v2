@@ -23,7 +23,7 @@ class todoItem {
         listItem.innerHTML = 
         `<lable>` +
             `<input type = "checkbox" class="rounded-checkbox">` +
-            `<span>Test Item</span>` +
+            `<span>${this.taskName}</span>` +
         `</label>` +
         `<span class = "li-subtitle">Created: ${this.createdDate}</span>` +
         '<span class = "li-subtitle">Completed:</span>';
@@ -35,7 +35,7 @@ class todoItem {
 
 addTodoButton.addEventListener("click", function() {
     console.log("LOG: Add to List buton clicked");
-    const newItem = new todoItem("test");
+    const newItem = new todoItem(todoInput.value);
     newItem.logInfo();
 
     newItem.render();
