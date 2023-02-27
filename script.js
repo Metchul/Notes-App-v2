@@ -34,7 +34,7 @@ class todoItem {
 
 
 addTodoButton.addEventListener("click", function() {
-    console.log("Add to List buton clicked");
+    console.log("LOG: Add to List buton clicked");
     const newItem = new todoItem("test");
     newItem.logInfo();
 
