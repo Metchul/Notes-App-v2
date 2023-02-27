@@ -31,7 +31,12 @@ class todoItem {
 
     //method for testing
     logInfo() {
-        console.log(this.taskName + " " + this.createdDate);
+        console.log(
+            "New Task Info:\n" +
+            "Text: " + this.taskName + "\n" +
+            "Id: " + this.todoId + "\n" +
+            "Created Date: " + this.createdDate + "\n"
+        );
     }
 
     //render what the new listitems will look like
@@ -44,7 +49,8 @@ class todoItem {
             `<span class="item-title">${this.taskName}</span>` +
         `</label>` +
         `<span class = "li-subtitle">Created: ${this.createdDate}</span>` +
-        '<span class = "li-subtitle">Completed:</span>';
+        '<span class = "li-subtitle">Completed:</span>' +
+        `<span class = "li-subtitle">Id: ${this.todoId}</span>`;
         todoListList.appendChild(listItem);
 
 
@@ -54,11 +60,11 @@ class todoItem {
             const targetCheckbox = event.target;
             if (targetCheckbox.checked) {
                 this.completedDate = new Date().toLocaleString();
-                console.log("Check box " + todoItemObject.taskName + " is checked.");
-                console.log(this.completedDate)
+                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + this.completedDate);
                 
             } else {
-                console.log("Check box " + todoItemObject.taskName + " is unchecked.");
+                this.completedDate = ""
+                console.log("Check box " + todoItemObject.todoId + " is checked.\nNew Completed Date: " + this.completedDate);
             }
         });
     }
