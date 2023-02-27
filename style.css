@@ -55,3 +55,12 @@ ul {
     margin-top: 5px;
     padding: 0px;
 }
+
+.todoListItems-section li {
+    margin: 5px;
+    margin-top: 10px;
+}
+
+input[type="checkbox"].rounded-checkbox:checked ~ .item-title {
+    text-decoration: line-through;
+}
