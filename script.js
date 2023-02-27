@@ -23,7 +23,7 @@ class todoItem {
         listItem.innerHTML = 
         `<lable>` +
             `<input type = "checkbox" class="rounded-checkbox">` +
-            `<span>${this.taskName}</span>` +
+            `<span class="item-title">${this.taskName}</span>` +
         `</label>` +
         `<span class = "li-subtitle">Created: ${this.createdDate}</span>` +
         '<span class = "li-subtitle">Completed:</span>';
