@@ -4,6 +4,7 @@ const todoInput = document.getElementById("todo-item-input");
 const addTodoButton = document.getElementById("add-todo-item-button");
 const todoListList = document.getElementById("todoList-list");
 const exportTodoListButton = document.getElementById("save-list-button");
+const loadTodoListButton = document.getElementById("load-list-button");
 
 //list used to export todolist items
 const todoListExport = []
@@ -45,19 +46,24 @@ class todoItem {
         const listItem = document.createElement("li");
         listItem.setAttribute("id", this.todoId);
         listItem.innerHTML = 
-        `<lable>` +
-            `<input type = "checkbox" class="rounded-checkbox" id="${this.todoId}">` +
+            `<label>` +
+            `<input type="checkbox" class="rounded-checkbox" id="${this.todoId}"${this.completedState ? " checked" : ""}>` +
             `<span class="item-title">${this.taskName}</span>` +
-        `</label>` +
-        `<span class="li-subtitle">Created: ${this.createdDate}</span>` +
-        `<span class="li-subtitle" id="${this.todoId}-completed-date"></span>` +
-        `<span class = "li-subtitle">Id: ${this.todoId}</span>`;
+            `</label>` +
+            `<span class="li-subtitle">Created: ${this.createdDate}</span>` +
+            `<span class="li-subtitle" id="${this.todoId}-completed-date">${this.completedDate ? "Completed: " + this.completedDate : ""}</span>` +
+            `<span class="li-subtitle">Id: ${this.todoId}</span>`;
         todoListList.appendChild(listItem);
     
 
         const todoItemObject = this;
         const checkBoxObject = document.getElementById(this.todoId);
         const completedDateElement = document.getElementById(`${this.todoId}-completed-date`);
+        
+        if (this.completedState) {
+            completedDateElement.textContent = "Completed: " + this.completedDate;
+        }
+
         checkBoxObject.addEventListener("change", function(event) {
             const targetCheckbox = event.target;
             if (targetCheckbox.checked) {
@@ -116,6 +122,29 @@ exportTodoListButton.addEventListener("click", function() {
     URL.revokeObjectURL(url);
 });
 
+
+loadTodoListButton.addEventListener("click", function() {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "application/json";
+    fileInput.addEventListener("change", function() {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.addEventListener("load", function() {
+        const todoList = JSON.parse(reader.result);
+        for (const todo of todoList) {
+          const newItem = new todoItem(todo.taskName, todo.completedState);
+          newItem.todoId = todo.todoId;
+          newItem.createdDate = todo.createdDate;
+          newItem.completedDate = todo.completedDate;
+          newItem.render();
+          todoListExport.push(newItem);
+        }
+      });
+      reader.readAsText(file);
+    });
+    fileInput.click();
+  });
 
 
 })
